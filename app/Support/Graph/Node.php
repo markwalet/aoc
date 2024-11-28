@@ -2,6 +2,8 @@
 
 namespace App\Support\Graph;
 
+use AllowDynamicProperties;
+
 class Node
 {
     /** @var int[] */
@@ -13,6 +15,7 @@ class Node
 
     public int $weight;
     public Node|null $previous;
+    private Graph $graph;
 
     public function __construct(public readonly string $name, public readonly string|null $value = null)
     {
@@ -39,4 +42,13 @@ class Node
         $this->visited = true;
     }
 
+    public function setGraph(Graph $graph): void
+    {
+        $this->graph = $graph;
+    }
+
+    public function graph(): Graph
+    {
+        return $this->graph;
+    }
 }

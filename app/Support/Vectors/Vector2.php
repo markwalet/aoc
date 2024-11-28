@@ -34,4 +34,9 @@ class Vector2
 
         return $this->x === $other->x && $this->y === $other->y;
     }
+
+    public function manhattan(): int
+    {
+        return abs($this->x) + abs($this->y);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Support\Graph;
 
+use App\Support\Queues\InvertedPriorityQueue;
 use Illuminate\Support\Collection;
 
 class Graph
@@ -15,6 +16,7 @@ class Graph
     public function addNode(Node $node): void
     {
         $this->nodes[$node->name] = $node;
+        $node->setGraph($this);
     }
 
     public function get(string $name): Node|null
@@ -35,25 +37,6 @@ class Graph
     public function collect(): Collection
     {
         return collect($this->all());
-    }
-
-    public function allPaths(Node $cursor, Node $end): \Generator
-    {
-        if ($cursor->is($end)) {
-            yield $end->weight;
-        }
-
-        $cursor->visited = true;
-
-        foreach($cursor->nodes as $name => $neighbour) {
-            if ($neighbour->visited) continue;
-
-            $neighbour->weight = $cursor->weight + $cursor->weights[$name];
-            $neighbour->previous = $cursor;
-
-            yield from $this->allPaths($neighbour, $end);
-        }
-        $cursor->visited = false;
     }
 
     public function dijkstraTwist(Node $start, Node $end, int $max): int|null
