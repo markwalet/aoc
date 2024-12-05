@@ -27,6 +27,11 @@ class CharMap
         return $this->lines[$row][$column];
     }
 
+    public function has(int $row, int $column): bool
+    {
+        return array_key_exists($row, $this->lines) && array_key_exists($column, $this->lines[$row]);
+    }
+
     public function getCell(int $row, int $column): CharCell|null
     {
         return new CharCell($this->lines[$row][$column], $row, $column);
@@ -49,8 +54,7 @@ class CharMap
 
     /**
      * @param int $row
-     * @param int $start
-     * @param int $length
+     * @param int $column
      * @return array<int, CharCell>
      */
     public function getSurrounding(int $row, int $column): array
