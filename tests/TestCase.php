@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Support\Inputs\CharMap;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -13,6 +14,11 @@ abstract class TestCase extends BaseTestCase
         return collect(explode($split, $this->puzzleInput($variant)))
             ->map(fn (string $line) => trim($line))
             ->reject(fn (string $line) => $line === '');
+    }
+
+    public function map(string|null $variant = null, string $split = PHP_EOL): CharMap
+    {
+        return new CharMap($this->lines($variant, $split)->map(fn (string $line) => str_split($line))->toArray());
     }
 
     private function puzzleInput(string|null $variant = null): string
