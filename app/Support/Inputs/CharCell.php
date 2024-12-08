@@ -5,8 +5,8 @@ class CharCell
 {
     public function __construct(
         public readonly string $value,
-        public readonly int $x,
         public readonly int $y,
+        public readonly int $x,
     )
     {
     }

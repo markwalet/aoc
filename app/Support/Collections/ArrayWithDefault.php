@@ -7,7 +7,7 @@ use ArrayObject;
 
 class ArrayWithDefault extends ArrayObject implements ArrayAccess
 {
-    public function __construct(private readonly int|string|bool $default, private object|array $items = [], int $flags = 0, string $iteratorClass = "ArrayIterator")
+    public function __construct(private readonly int|string|bool|array $default, private object|array $items = [], int $flags = 0, string $iteratorClass = "ArrayIterator")
     {
         parent::__construct($items, $flags, $iteratorClass);
     }
