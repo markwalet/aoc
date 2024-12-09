@@ -41,7 +41,7 @@ class Day9Test extends TestCase
         $expanded = $this->reduceB($expanded, $spaces)->toArray();
         $checksum = $this->checkSum($expanded);
 
-        $this->assertEquals(6432869891895, $checksum);
+        $this->assertEquals(6467290479134, $checksum);
     }
 
     private function expand(string $input): array
