@@ -27,10 +27,9 @@ class Day4Test extends TestCase
     #[Test]
     public function it_can_solve_day_4b(): void
     {
-        // Too high 2246
         $score = $this->searchXmas2($this->map());
 
-        $this->assertEquals(2644, $score);
+        $this->assertEquals(1952, $score);
     }
 
     private function searchXmas(CharMap $map): int
