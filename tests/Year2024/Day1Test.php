@@ -25,7 +25,7 @@ class Day1Test extends TestCase
         $this->assertEquals(21328497, $result);
     }
 
-    private function map(Collection $lines): array
+    private function mapLines(Collection $lines): array
     {
         $first = [];
         $second = [];
@@ -40,7 +40,7 @@ class Day1Test extends TestCase
 
     private function calculateDiff(Collection $lines): int
     {
-        [$first, $second] = $this->map($lines);
+        [$first, $second] = $this->mapLines($lines);
         sort($first);
         sort($second, SORT_DESC);
         $diff = 0;
@@ -53,7 +53,7 @@ class Day1Test extends TestCase
 
     private function getSimilarityScore(Collection $lines)
     {
-        [$first, $second] = $this->map($lines);
+        [$first, $second] = $this->mapLines($lines);
 
         $second = collect($second)->groupBy(fn (int $number) => $number)
             ->map(fn (Collection $numbers) => $numbers->count());
