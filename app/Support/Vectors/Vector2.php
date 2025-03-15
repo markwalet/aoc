@@ -18,6 +18,14 @@ class Vector2
         return new Vector2($this->x + $other->x, $this->y + $other->y);
     }
 
+    public function move(Vector2 $other): Vector2
+    {
+        $this->x += $other->x;
+        $this->y += $other->y;
+
+        return $this;
+    }
+
     public function multiply(int $factor): Vector2
     {
         return new Vector2($this->x * $factor, $this->y * $factor);

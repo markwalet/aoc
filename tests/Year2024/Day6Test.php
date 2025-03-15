@@ -2,6 +2,7 @@
 
 namespace Tests\Year2024;
 
+use App\Support\Inputs\CharCell;
 use App\Support\Inputs\CharMap;
 use App\Support\Navigation\Direction;
 use App\Support\Vectors\Vector2;
@@ -39,10 +40,10 @@ class Day6Test extends TestCase
         $this->assertEquals(1836, $routeSize);
     }
 
-    private function getPath(CharMap $map): array
+    private function getPath(CharMap $map, Vector2|null $start = null, Direction|null $direction = null): array
     {
-        $position = $this->getStartingPosition($map);
-        $direction = Direction::UP;
+        $position = $start ?? $this->getStartingPosition($map);
+        $direction = $direction ?? Direction::UP;
         $path = [
             "$position->x-$position->y" => $direction,
         ];

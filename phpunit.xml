@@ -5,6 +5,12 @@
          colors="true"
 >
     <testsuites>
+        <testsuite name="2015">
+            <directory>tests/Year2015</directory>
+        </testsuite>
+        <testsuite name="2016">
+            <directory>tests/Year2016</directory>
+        </testsuite>
         <testsuite name="2024">
             <directory>tests/Year2024</directory>
         </testsuite>
