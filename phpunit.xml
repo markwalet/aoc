@@ -14,6 +14,9 @@
         <testsuite name="2024">
             <directory>tests/Year2024</directory>
         </testsuite>
+        <testsuite name="2025">
+            <directory>tests/Year2025</directory>
+        </testsuite>
         <testsuite name="Support">
             <directory>tests/Support</directory>
         </testsuite>
