@@ -21,7 +21,7 @@ abstract class TestCase extends BaseTestCase
         return new CharMap($this->lines($variant, $split)->map(fn (string $line) => str_split($line))->toArray());
     }
 
-    private function puzzleInput(string|null $variant = null): string
+    public function puzzleInput(string|null $variant = null): string
     {
         return file_get_contents($this->puzzleInputPath($variant));
     }
