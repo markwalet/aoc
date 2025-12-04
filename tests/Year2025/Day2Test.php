@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class Day2Test extends TestCase
 {
-    public static $divisionCache = [];
+    public static array $divisionCache = [];
 
     #[Test]
     public function it_can_solve_day_2_example(): void
