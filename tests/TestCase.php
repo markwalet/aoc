@@ -9,10 +9,10 @@ use Illuminate\Support\Str;
 
 abstract class TestCase extends BaseTestCase
 {
-    public function lines(string|null $variant = null, string $split = PHP_EOL): Collection
+    public function lines(string|null $variant = null, string $split = PHP_EOL, bool $trim = true): Collection
     {
         return collect(explode($split, $this->puzzleInput($variant)))
-            ->map(fn (string $line) => trim($line))
+            ->map(fn (string $line) => $trim ? trim($line) : $line)
             ->reject(fn (string $line) => $line === '');
     }
 
