@@ -11,6 +11,9 @@
         <testsuite name="2016">
             <directory>tests/Year2016</directory>
         </testsuite>
+        <testsuite name="2020">
+            <directory>tests/Year2025</directory>
+        </testsuite>
         <testsuite name="2024">
             <directory>tests/Year2024</directory>
         </testsuite>
