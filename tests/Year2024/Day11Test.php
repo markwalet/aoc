@@ -2,68 +2,48 @@
 
 namespace Tests\Year2024;
 
-use App\Support\Inputs\CharCell;
-use App\Support\Inputs\CharMap;
-use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class Day11Test extends TestCase
 {
     #[Test]
-    public function it_can_blink(): void
+    public function it_can_solve_day_11(): void
     {
-        $data = [125, 17];
+        $data = ['890', '0', '1', '935698', '68001', '3441397', '7221', '27'];
 
-        $result = $this->blink($data);
-        $this->assertEquals([253000, 1, 7], $result);
-
-        $result = $this->blink($result);
-        $this->assertEquals([253, 0, 2024, 14168], $result);
-    }
-
-    #[Test]
-    public function it_can_solve_day_10a(): void
-    {
-        $data = collect([890, 0, 1, 935698, 68001, 3441397, 7221, 27]);
-
-        for($i =0; $i < 25; $i++) {
-            $data = $this->blink($data);
+        $resultA = $resultB = 0;
+        $memory = [];
+        foreach ($data as $d) {
+            $resultA += $this->dfs($d, 25, $memory);
+            $resultB += $this->dfs($d, 75, $memory);
         }
 
-        $this->assertCount(194782, $data->toArray());
+        $this->assertEquals(194782, $resultA);
+        $this->assertEquals(233007586663131, $resultB);
     }
 
-    #[Test]
-    public function it_can_solve_day_10b(): void
+    private function dfs(string $number, int $depth, array &$memory = []): int
     {
-        ini_set('memory_limit', '-1');
-        $cache = [];
-        $data = collect([890, 0, 1, 935698, 68001, 3441397, 7221, 27]);
-
-        for($i =0; $i < 75; $i++) {
-            dump($i);
-            $data = $this->blink($data);
+        if ($depth === 0) {
+            return 1;
         }
 
-        $this->assertCount(12, $data);
-    }
-
-    private function blink(Collection $data): Collection
-    {
-        $result = collect();
-        foreach($data as $number) {
-            if ($number === 0) {
-                $result[] = 1;
+        if (array_key_exists($number.'-'.$depth, $memory) === false) {
+            if ($number === '0') {
+                $result = $this->dfs('1', $depth - 1, $memory);
             } elseif (strlen($number) % 2 === 0) {
-                [$first, $second] = str_split($number, strlen($number) / 2);
-                $result[] = (int)$first;
-                $result[] = (int)$second;
+                [$first, $second] = array_map(fn (string $n) => ltrim($n, '0'), str_split($number, strlen($number) / 2));
+
+                $result = $this->dfs($first === '' ? '0' : $first, $depth - 1, $memory)
+                    + $this->dfs($second === '' ? '0' : $second, $depth - 1, $memory);
             } else {
-                $result[] = $number * 2024;
+                $result = $this->dfs(bcmul($number, '2024'), $depth - 1, $memory);
             }
+
+            $memory[$number.'-'.$depth] = $result;
         }
 
-        return $result;
+        return $memory[$number.'-'.$depth];
     }
 }

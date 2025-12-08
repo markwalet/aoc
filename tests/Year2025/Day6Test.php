@@ -19,13 +19,13 @@ class Day6Test extends TestCase
     }
 
     #[Test]
-    public function it_can_solve_day_5(): void
+    public function it_can_solve_day_6(): void
     {
         $resultA = $this->solve($this->parseA($this->lines()));
         $resultB = $this->solve($this->parseB($this->lines(trim: false)));
 
         $this->assertEquals(6169101504608, $resultA);
-        $this->assertEquals(6169101504608, $resultB);
+        $this->assertEquals(10442199710797, $resultB);
     }
 
     private function solve(Collection $parsed): int

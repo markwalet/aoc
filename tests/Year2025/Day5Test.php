@@ -28,7 +28,7 @@ class Day5Test extends TestCase
         $resultB = $parsed->countAvailableFresh();
 
         $this->assertEquals(674, $resultA);
-        $this->assertEquals(674, $resultB);
+        $this->assertEquals(352509891817881, $resultB);
     }
 
     private function parse(string $input): IngredientList
