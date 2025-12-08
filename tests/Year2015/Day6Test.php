@@ -45,10 +45,10 @@ class Day6Test extends TestCase
         $this->followInstructions($instructions, function (string $command, int $x, int $y) use ($grid) {
             switch ($command) {
                 case 'toggle':
-                    $grid->replace($y, $x, $grid->get($y, $x) + 2);
+                    $grid->increment($y, $x, 2);
                     break;
                 case 'on':
-                    $grid->replace($y, $x, $grid->get($y, $x)+1);
+                    $grid->increment($y, $x);
 
                     break;
                 case 'off':

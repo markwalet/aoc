@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class   Day8Test extends TestCase
+class Day8Test extends TestCase
 {
     #[Test]
     public function it_can_solve_day_8_example(): void

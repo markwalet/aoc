@@ -42,6 +42,11 @@ class CharMap
         $this->lines[$row][$column] = $replacement;
     }
 
+    public function increment(int $row, int $column, int $delta = 1): void
+    {
+        $this->lines[$row][$column] += $delta;
+    }
+
     public function count(string|int|bool $search): int
     {
         return array_sum(array_map(fn (array $row) => count(array_filter($row, fn (string|int|bool $char) => $char === $search)), $this->lines));
