@@ -34,4 +34,13 @@ class Vector3
 
         return $this->x === $other->x && $this->y === $other->y && $this->z === $other->z;
     }
+
+    public function euclideanDistance(Vector3 $other): float
+    {
+        return sqrt(
+            ($this->x - $other->x) ** 2 +
+            ($this->y - $other->y) ** 2 +
+            ($this->z - $other->z) ** 2
+        );
+    }
 }

@@ -10,7 +10,7 @@ use Tests\TestCase;
 class Day7Test extends TestCase
 {
     #[Test]
-    public function it_can_solve_day_6_example(): void
+    public function it_can_solve_day_7_example(): void
     {
         $resultA = $this->countSplits($this->map('example'));
         $resultB = $this->countSplits($this->map('example'), true);
@@ -20,7 +20,7 @@ class Day7Test extends TestCase
     }
 
     #[Test]
-    public function it_can_solve_day_6(): void
+    public function it_can_solve_day_7(): void
     {
         $resultA = $this->countSplits($this->map());
         $resultB = $this->countSplits($this->map(), true);

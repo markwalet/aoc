@@ -3,10 +3,12 @@
 namespace App\Support\Graph;
 
 use AllowDynamicProperties;
+use App\Support\Vectors\Vector2;
+use App\Support\Vectors\Vector3;
 
 class Node
 {
-    /** @var int[] */
+    /** @var float[] */
     public array $weights;
 
     /** @var Node[] */
@@ -17,7 +19,7 @@ class Node
     public Node|null $previous;
     private Graph $graph;
 
-    public function __construct(public readonly string $name, public readonly string|null $value = null)
+    public function __construct(public readonly string $name, public readonly string|Vector2|Vector3|null $value = null)
     {
         $this->nodes = [];
         $this->weights = [];
@@ -31,10 +33,16 @@ class Node
         return $node->name === $this->name;
     }
 
-    public function addNeighbour(Node $node, int $weight = 1): void
+    public function addNeighbour(Node $node, float $weight = 1): void
     {
         $this->weights[$node->name] = $weight;
         $this->nodes[$node->name] = $node;
+    }
+
+    public function removeNeighbour(Node $node): void
+    {
+        unset($this->weights[$node->name]);
+        unset($this->nodes[$node->name]);
     }
 
     public function visit(): void
