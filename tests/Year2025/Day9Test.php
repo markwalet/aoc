@@ -59,10 +59,11 @@ class Day9Test extends TestCase
         for ($i = 0; $i < $points->count() - 1; $i++) {
             $a = $points[$i];
             $b = $points[$i + 1];
-            $lines->add([$a, $b]);
+            $lines->add(['points' => [$a, $b], 'length' => $a->distance($b)]);
         }
 
-        return $lines;
+        // Sorting on longest lines first to optimize intersection checks.
+        return $lines->sortByDesc('length')->pluck('points');
     }
 
     private function checkIntersection(array $square, array $line): bool
