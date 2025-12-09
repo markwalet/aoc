@@ -18,6 +18,11 @@ class Vector2
         return new Vector2($this->x + $other->x, $this->y + $other->y);
     }
 
+    public function mod(Vector2 $other): Vector2
+    {
+        return new Vector2($this->x % $other->x, $this->y % $other->y);
+    }
+
     public function distance(Vector2 $other): float
     {
         return sqrt(pow($this->x - $other->x, 2) + pow($this->y - $other->y, 2));
