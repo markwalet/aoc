@@ -2,6 +2,7 @@
 
 namespace App\Support\Inputs;
 
+use App\Support\Vectors\Vector2;
 use RuntimeException;
 
 class CharMap
@@ -22,8 +23,12 @@ class CharMap
         return new self(array_fill(0, $height, $row));
     }
 
-    public function get(int $row, int $column): string|int|bool|null
+    public function get(int|Vector2 $row, int $column = null): string|int|bool|null
     {
+        if ($row instanceof Vector2) {
+            return $this->lines[$row->y][$row->x];
+        }
+
         return $this->lines[$row][$column];
     }
 
@@ -78,6 +83,19 @@ class CharMap
         }
 
         return $adjacent;
+    }
+
+    public function firstWhere(string $search): Vector2
+    {
+        for ($x = 0; $x < $this->width; $x++) {
+            for ($y = 0; $y < $this->height; $y++) {
+                if ($this->get($y, $x) === $search) {
+                    return new Vector2($x, $y);
+                }
+            }
+        }
+
+        throw new RuntimeException("Did not find $search in map.");
     }
 
     public function fill(CharCell|null $cursor, string $empty = '.', string $wall = '#'): void

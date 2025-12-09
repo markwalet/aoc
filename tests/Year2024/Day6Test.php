@@ -41,7 +41,7 @@ class Day6Test extends TestCase
 
     private function getPath(CharMap $map, Vector2|null $start = null, Direction|null $direction = null, array|null $path = null): int
     {
-        $position = $start ?? $this->getStartingPosition($map);
+        $position = $start ?? $map->firstWhere('^');
         $direction = $direction ?? Direction::UP;
         $path = $path ?? [
             "$position->x-$position->y" => [$direction->value],
@@ -65,23 +65,10 @@ class Day6Test extends TestCase
         }
     }
 
-    private function getStartingPosition(CharMap $map): Vector2
-    {
-        for ($x = 0; $x < $map->width; $x++) {
-            for ($y = 0; $y < $map->height; $y++) {
-                if ($map->get($y, $x) === '^') {
-                    return new Vector2($x, $y);
-                }
-            }
-        }
-
-        throw new RuntimeException('No starting position found');
-    }
-
     private function findLoops(CharMap $map): int
     {
-        $position = $start = $this->getStartingPosition($map);
-        $direction = $startDirection = Direction::UP;
+        $position = $start = $map->firstWhere('^');
+        $direction = Direction::UP;
 
         $loops = [];
         $visited = [];

@@ -2,6 +2,8 @@
 
 namespace App\Support\Vectors;
 
+use App\Support\Navigation\Direction;
+
 class Vector2
 {
     public function __construct(public float $x, public float $y)
@@ -13,8 +15,12 @@ class Vector2
         return new Vector2($this->x - $other->x, $this->y - $other->y);
     }
 
-    public function add(Vector2 $other): Vector2
+    public function add(Vector2|Direction $other): Vector2
     {
+        if ($other instanceof Direction) {
+            $other = $other->vector();
+        }
+
         return new Vector2($this->x + $other->x, $this->y + $other->y);
     }
 
@@ -28,8 +34,12 @@ class Vector2
         return sqrt(pow($this->x - $other->x, 2) + pow($this->y - $other->y, 2));
     }
 
-    public function move(Vector2 $other): Vector2
+    public function move(Vector2|Direction $other): Vector2
     {
+        if ($other instanceof Direction) {
+            $other = $other->vector();
+        }
+
         $this->x += $other->x;
         $this->y += $other->y;
 
