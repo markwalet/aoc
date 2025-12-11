@@ -8,6 +8,8 @@ use Illuminate\Support\LazyCollection;
 
 class SumCombinationGenerator
 {
+    private bool $repeat = false;
+
     /**
      * @param array<int, int> $items
      */
@@ -17,14 +19,27 @@ class SumCombinationGenerator
 
     /**
      * @param array<int, int>|Collection<int, int> $items
+     * @param int $sum
      * @return SumCombinationGenerator
      */
     public static function for(array|Collection $items, int $sum): SumCombinationGenerator
     {
         $items = is_array($items) ? array_values($items) : $items->values()->toArray();
 
-
         return new self($items, $sum);
+    }
+
+    /**
+     * Allow for repeating values.
+     *
+     * @param bool $repeat
+     * @return SumCombinationGenerator
+     */
+    public function repeat(bool $repeat = true): SumCombinationGenerator
+    {
+        $this->repeat = $repeat;
+
+        return $this;
     }
 
     /**
@@ -33,7 +48,7 @@ class SumCombinationGenerator
     public function generate(): LazyCollection
     {
         return LazyCollection::make(function () {
-            foreach($this->_generate($this->items) as $item) {
+            foreach($this->_generate($this->items, $this->sum) as $item) {
                 yield $item;
             }
         });
@@ -47,16 +62,20 @@ class SumCombinationGenerator
      * @param int $limit
      * @return Generator
      */
-    private function _generate(array $options, array $result = []): Generator
+    private function _generate(array $options, int $goal, array $result = []): Generator
     {
-        if (array_sum($result) === $this->sum) {
+        if ($goal === 0) {
             yield $result;
-        } elseif (count($options) > 0) {
-            $option = array_shift($options);
+        } elseif ($goal > 0 && count($options) > 0) {
+            $key = array_key_first($options);
+            $option = $options[$key];
+            if ($this->repeat === false) {
+                unset($options[$key]);
+            }
 
-            yield from $this->_generate($options, $result);
-            $result[] = $option;
-            yield from $this->_generate($options, $result);
+            yield from $this->_generate($options, $goal, $result);
+            $result[] = $key;
+            yield from $this->_generate($options, $goal - $option, $result);
         }
     }
 }

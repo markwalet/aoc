@@ -2,7 +2,6 @@
 
 namespace App\Support\Graph;
 
-use AllowDynamicProperties;
 use App\Support\Vectors\Vector2;
 use App\Support\Vectors\Vector3;
 
@@ -48,6 +47,11 @@ class Node
     public function visit(): void
     {
         $this->visited = true;
+    }
+
+    public function unvisit(): void
+    {
+        $this->visited = false;
     }
 
     public function setGraph(Graph $graph): void

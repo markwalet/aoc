@@ -68,4 +68,9 @@ class Graph
             }
         }
     }
+
+    public function dd()
+    {
+        dd(collect($this->nodes)->map(fn (Node $n) => $n->name .': ('.collect($n->nodes)->pluck('name')->implode(', ').')'));
+    }
 }
